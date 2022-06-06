@@ -35,6 +35,7 @@ INSTALLED_APPS = [
     # Local Apps
     'api.apps.ApiConfig',
     'accounts.apps.AccountsConfig',
+    'tasks.apps.TasksConfig',
 
 
 ]

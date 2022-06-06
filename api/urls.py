@@ -12,7 +12,7 @@ from rest_framework_simplejwt.views import (TokenRefreshView)
 app_name = "api"
 routes = SimpleRouter()
 
-# Accounts
+# Accounts Routes
 routes.register(r'login', LoginViewSet, basename='login')
 routes.register(r'register', OwnerRegistrationViewSet, basename='register')
 routes.register(r'admin/sign-up', AdminRegistrationViewSet,
@@ -26,6 +26,7 @@ routes.register("admin/profile", AdministratorProfileAPIView,
                 basename="admin-profile")
 routes.register('owner/profile', OwnerProfileAPIView,
                 basename="owner-profile")
+# Tasks Routes
 
 urlpatterns = [
     *routes.urls,
