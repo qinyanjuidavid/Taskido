@@ -3,6 +3,8 @@ from django.utils.translation import gettext as _
 from accounts.models import Owner, TrackingModel
 # Create your models here.
 
+# In_progress, Complete,Pending
+
 
 class Category(TrackingModel):
     category = models.CharField(_("Category"),

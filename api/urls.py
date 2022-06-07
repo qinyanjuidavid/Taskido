@@ -7,6 +7,7 @@ from rest_framework.routers import SimpleRouter
 from django.views.generic import TemplateView
 from django.urls import path
 from rest_framework_simplejwt.views import (TokenRefreshView)
+from tasks.views import CategoryAPIView, TaskAPIView
 
 
 app_name = "api"
@@ -27,6 +28,8 @@ routes.register("admin/profile", AdministratorProfileAPIView,
 routes.register('owner/profile', OwnerProfileAPIView,
                 basename="owner-profile")
 # Tasks Routes
+routes.register("category", CategoryAPIView, basename="categories")
+routes.register("tasks", TaskAPIView, basename="tasks")
 
 urlpatterns = [
     *routes.urls,
