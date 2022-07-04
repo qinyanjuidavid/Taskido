@@ -99,7 +99,7 @@ class SetNewPasswordSerializer(serializers.Serializer):
         fields = ("password", "password_confirmation", "token", "uidb64")
 
 
-class OwnersProfileSerializer(serializers.Serializer):
+class OwnersProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
 
     class Meta:
@@ -110,12 +110,14 @@ class OwnersProfileSerializer(serializers.Serializer):
         read_only_fields = ("id",)
 
 
-class AdministratorProfileSerializer(serializers.Serializer):
+class AdministratorProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)
+    url = serializers.HyperlinkedRelatedField(
+        read_only=True, view_name="api:admin-profile")
 
     class Meta:
-        model = Owner
-        fields = ("id", "user", "bio",
+        model = Administrator
+        fields = ("id", "url", "user", "bio",
                   "profile_picture",
                   )
         read_only_fields = ("id",)

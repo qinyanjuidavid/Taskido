@@ -62,7 +62,11 @@ class OwnerRegistrationViewSet(ModelViewSet, TokenObtainPairView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save(is_active=False, role="Owner")
+        user = serializer.save()
+        user.role = "Owner"
+        user.is_active = False
+        user.save()
+        Owner.objects.update_or_create(user=user)
         user_data = serializer.data
         send_activation_mail(user_data, request)
 
@@ -78,7 +82,7 @@ class OwnerRegistrationViewSet(ModelViewSet, TokenObtainPairView):
                         }, status=status.HTTP_201_CREATED)
 
 
-class AdminRegistrationViewSet(ModelViewSet, TokenObtainPairView):
+class AdminRegistrationViewSet(ModelViewSet):
     serializer_class = RegisterSerializer
     permission_classes = [IsAuthenticated, IsAdministrator]
     http_method_names = ['post', ]
@@ -86,7 +90,11 @@ class AdminRegistrationViewSet(ModelViewSet, TokenObtainPairView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        user = serializer.save(is_active=False, role="Administrator")
+        user = serializer.save()
+        user.role = "Administrator"
+        user.is_active = False
+        user.save()
+        Administrator.objects.update_or_create(user=user)
         user_data = serializer.data
         send_activation_mail(user_data, request)
 
@@ -156,8 +164,10 @@ class RequestPasswordResetEmail(ModelViewSet):
     http_method_names = ["post", ]
 
     def create(self, request, *args, **kwargs):
-        self.get_serializer(data=request.data)
-        email = request.data["email"]
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        email = serializer.validated_data["email"]
+        # email = request.data["email"]
         if User.objects.filter(email=email):
             user = User.objects.get(email=email)
             if user.is_active:
@@ -260,7 +270,11 @@ class OwnerProfileAPIView(ModelViewSet):
             request.user, data=request.data["user"]
         )
         userSerializer.is_valid(raise_exception=True)
-        userSerializer.save()
+        instance.user.username = userSerializer.validated_data["username"]
+        instance.user.full_name = userSerializer.validated_data["full_name"]
+        instance.user.phone = userSerializer.validated_data["phone"]
+        instance.user.save()
+        # userSerializer.save()
         return Response(
             serializer.data, status=status.HTTP_202_ACCEPTED
         )

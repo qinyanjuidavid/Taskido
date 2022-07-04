@@ -42,7 +42,7 @@ def send_password_reset_email(user_data, request):
     token = PasswordResetTokenGenerator().make_token(user_data)
     to_mail = user_data.email
     current_site = get_current_site(request).domain
-    relative_link = reverse("api:password-token-check",
+    relative_link = reverse("api:password-reset-confirm",
                             kwargs={'uidb64': uidb64,
                                     'token': token}
                             )

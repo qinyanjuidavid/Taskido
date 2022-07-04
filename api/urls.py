@@ -14,13 +14,15 @@ app_name = "api"
 routes = SimpleRouter()
 
 # Accounts Routes
-routes.register(r'login', LoginViewSet, basename='login')
-routes.register(r'register', OwnerRegistrationViewSet, basename='register')
+routes.register(r'login', LoginViewSet, basename='login')  # Done
+routes.register(r'register', OwnerRegistrationViewSet,
+                basename='register')  # Done
 routes.register(r'admin/sign-up', AdminRegistrationViewSet,
-                basename='admin-register')
-routes.register(r'auth/refresh', RefreshViewSet, basename='auth-refresh')
+                basename='admin-register')  # Done
+routes.register(r'auth/refresh', RefreshViewSet,
+                basename='auth-refresh')  # Done
 routes.register('password-reset', RequestPasswordResetEmail,
-                basename="requestPasswordReset")
+                basename="requestPasswordReset")  # Done
 routes.register('password-reset-complete',  SetNewPasswordAPIView,
                 basename="password-reset-complete")
 routes.register("admin/profile", AdministratorProfileAPIView,
