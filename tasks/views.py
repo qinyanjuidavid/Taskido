@@ -16,10 +16,13 @@ class CategoryAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwner]
     http_method_names = ["get", "post", "put", "delete"]
 
-    def get_queryset(self, request, *args, **kwargs):
+    def get_queryset(self):
         user = self.request.user
+        ownerQuery = Owner.objects.get(
+            Q(user=user)
+        )
         categoryObj = Category.objects.filter(
-            Q(owner=user)
+            Q(owner=ownerQuery)
         )
         return categoryObj
 
@@ -65,10 +68,13 @@ class TaskAPIView(ModelViewSet):
     permission_classes = [IsAuthenticated, IsOwner]
     http_method_names = ["get", "post", "put", "delete"]
 
-    def get_queryset(self, request, *args, **kwargs):
+    def get_queryset(self):
         user = self.request.user
+        ownerQuery = Owner.objects.get(
+            Q(user=user)
+        )
         taskObj = Task.objects.filter(
-            Q(owner=user)
+            Q(owner=ownerQuery)
         )
         return taskObj
 
@@ -104,6 +110,6 @@ class TaskAPIView(ModelViewSet):
         queryset = get_object_or_404(queryset, pk=pk)
         queryset.delete()
         return Response(
-            {"Category was successfully deleted."},
+            {"Task was successfully deleted."},
             status=status.HTTP_204_NO_CONTENT
         )

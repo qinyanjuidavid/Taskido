@@ -6,6 +6,7 @@ from tasks.models import Category, Task
 
 class CategorySerializer(serializers.ModelSerializer):
     owner = OwnersProfileSerializer(read_only=True)
+    category = serializers.CharField(required=True)
 
     class Meta:
         model = Category
@@ -18,6 +19,7 @@ class CategorySerializer(serializers.ModelSerializer):
 class TaskSerializer(serializers.ModelSerializer):
     owner = OwnersProfileSerializer(read_only=True)
     # category = CategorySerializer(read_only=True)
+    task = serializers.CharField(required=True)
 
     class Meta:
         model = Task

@@ -8,8 +8,7 @@ from accounts.models import Owner, TrackingModel
 
 class Category(TrackingModel):
     category = models.CharField(_("Category"),
-                                max_length=108,
-                                default="Tasks")
+                                max_length=108)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
 
