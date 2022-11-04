@@ -6,14 +6,10 @@ from accounts.views import (
     LoginViewSet,
     OwnerProfileAPIView,
     OwnerRegisterViewSet,
-    PasswordResetTokenCheck,
     PasswordResetTokenCheckViewSet,
     RefreshViewSet,
-    RequestPasswordResetEmail,
     RequestPasswordResetPhoneNumber,
-    SetNewPasswordAPIView,
     SetNewPasswordViewSet,
-    VerifyEmail,
 )
 from rest_framework.routers import SimpleRouter
 from django.views.generic import TemplateView
@@ -62,17 +58,4 @@ routes.register("tasks", TaskAPIView, basename="tasks")
 
 urlpatterns = [
     *routes.urls,
-    path("activate/", VerifyEmail, name="email-verify"),
-    path(
-        "password-reset/<uidb64>/<token>",
-        PasswordResetTokenCheck,
-        name="password-reset-confirm",
-    ),
-    path(
-        "password-reset-successful/",
-        TemplateView.as_view(
-            template_name="accounts/password_reset_success.html",
-        ),
-        name="passwordResetSuccess",
-    ),
 ]

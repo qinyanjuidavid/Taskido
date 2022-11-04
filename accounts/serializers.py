@@ -85,22 +85,20 @@ class RegisterSerializer(serializers.ModelSerializer):
             )
 
         except ObjectDoesNotExist:
-            if validated_data["password"] == validated_data["password_confirmation"]:
-                if (
-                    validated_data["role"] == "Customer"
-                    or validated_data["role"] == "Dealer"
-                ):
-                    user = User.objects.create(
-                        phone=validated_data["phone"],
-                        email=validated_data["email"],
-                        full_name=validated_data["full_name"],
-                        role="Owner",
-                        is_active=False,
-                    )
-                    user.set_password(
-                        validated_data["password"],
-                    )
-                    user.save()
+            password1 = validated_data["password"]
+            password2 = validated_data["password_confirmation"]
+            if password1 and password2 and password1 == password2:
+                user = User.objects.create(
+                    phone=validated_data["phone"],
+                    email=validated_data["email"],
+                    full_name=validated_data["full_name"],
+                    role="Owner",
+                    is_active=False,
+                )
+                user.set_password(
+                    password1,
+                )
+                user.save()
             return user
 
 
