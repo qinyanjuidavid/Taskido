@@ -18,11 +18,12 @@ class CategoryAdmin(admin.ModelAdmin):
 class Taskdmin(admin.ModelAdmin):
     list_display = (
         "get_owner_full_name",
+        "task",
         "category",
-        "completed",
         "due_date",
-        "important",
         "created_at",
+        "completed",
+        "important",
     )
     list_filter = ("completed", "important")
 
