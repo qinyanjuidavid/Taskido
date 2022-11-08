@@ -87,6 +87,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         except ObjectDoesNotExist:
             password1 = validated_data["password"]
             password2 = validated_data["password_confirmation"]
+
             if password1 and password2 and password1 == password2:
                 user = User.objects.create(
                     phone=validated_data["phone"],
@@ -99,7 +100,11 @@ class RegisterSerializer(serializers.ModelSerializer):
                     password1,
                 )
                 user.save()
-            return user
+                return user
+            else:
+                raise serializers.ValidationError(
+                    "Passwords do not match.",
+                )
 
 
 class ResetPasswordEmailRequestSerializer(serializers.Serializer):
