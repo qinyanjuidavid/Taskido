@@ -176,6 +176,26 @@ class RefreshViewSet(ModelViewSet, TokenRefreshView):
         return Response(serializer.validated_data, status=status.HTTP_200_OK)
 
 
+# logout
+class LogoutViewSet(ModelViewSet):
+    permission_classes = [IsAuthenticated]
+    http_method_names = ["post"]
+
+    def create(self, request, *args, **kwargs):
+        try:
+            refresh_token = request.data["refresh"]
+            token = RefreshToken(refresh_token)
+            token.blacklist()
+            return Response(
+                {"message": "Successfully logged out"},
+                status=status.HTTP_205_RESET_CONTENT,
+            )
+        except Exception as e:
+            return Response(
+                {"message": "Logout failed"}, status=status.HTTP_400_BAD_REQUEST
+            )
+
+
 class AccountActivationViewSet(ModelViewSet):
     """
     After registration, users will receive an OTP to activate their account,

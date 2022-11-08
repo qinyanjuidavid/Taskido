@@ -4,6 +4,7 @@ from accounts.views import (
     AdministratorProfileAPIView,
     GoogleSocialLogin,
     LoginViewSet,
+    LogoutViewSet,
     OwnerProfileAPIView,
     OwnerRegisterViewSet,
     PasswordResetTokenCheckViewSet,
@@ -44,6 +45,7 @@ routes.register(
     SetNewPasswordViewSet,
     basename="password-reset-complete",
 )
+routes.register("logout", LogoutViewSet, basename="logout")
 # Google Login
 routes.register("google/login", GoogleSocialLogin, basename="googleLogin")
 routes.register(
