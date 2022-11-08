@@ -272,7 +272,10 @@ class RequestPasswordResetPhoneNumber(ModelViewSet):
                     # Send sms to user with the otp
                     print("Password Reset OTP: ", send_otp)
                     return Response(
-                        {"message": "OTP sent successfully"},
+                        {
+                            "data": serializer.data,
+                            "message": "OTP sent successfully",
+                        },
                         status=status.HTTP_200_OK,
                     )
             return Response(
@@ -315,7 +318,10 @@ class PasswordResetTokenCheckViewSet(ModelViewSet):
                 OTP = pyotp.HOTP(key)
                 if OTP.verify(request.data["token"], user.counter):
                     return Response(
-                        {"message": "OTP verified successfully"},
+                        {
+                            "otpData": serializer.data,
+                            "message": "OTP verified successfully",
+                        },
                         status=status.HTTP_200_OK,
                     )
                 else:
