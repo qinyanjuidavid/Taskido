@@ -8,6 +8,7 @@ from rest_framework.viewsets import ModelViewSet
 from rest_framework import generics, serializers, status, viewsets
 
 from tasks.models import Category, Task
+from tasks.paginations import StandardResultsSetPagination
 from tasks.serializers import CategorySerializer, TaskSerializer
 
 
@@ -17,19 +18,28 @@ class CategoryAPIView(ModelViewSet):
     http_method_names = ["get", "post", "put", "delete"]
 
     def get_queryset(self):
-        user = self.request.user
-        ownerQuery = Owner.objects.get(
-            Q(user=user)
-        )
-        categoryObj = Category.objects.filter(
-            Q(owner=ownerQuery)
-        )
-        return categoryObj
+        owner = Owner.objects.get(Q(user=self.request.user))
+        queryset = Category.objects.filter(Q(owner=owner))
+        query = self.request.query_params.get("q")
+        if query:
+            queryset = queryset.filter(
+                Q(category__icontains=query),
+            )
+        return queryset
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if request.method == "GET":
+            if len(queryset) > 0:
+                paginator = StandardResultsSetPagination()
+                result_page = paginator.paginate_queryset(queryset, request)
+                serializer = self.get_serializer(result_page, many=True)
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(
+                    {"message": "No Category found"},
+                    status=status.HTTP_200_OK,
+                )
 
     def retrieve(self, request, pk=None, *args, **kwargs):
         queryset = self.get_queryset()
@@ -58,8 +68,7 @@ class CategoryAPIView(ModelViewSet):
         queryset = get_object_or_404(queryset, pk=pk)
         queryset.delete()
         return Response(
-            {"Category was successfully deleted."},
-            status=status.HTTP_204_NO_CONTENT
+            {"Category was successfully deleted."}, status=status.HTTP_204_NO_CONTENT
         )
 
 
@@ -70,12 +79,8 @@ class TaskAPIView(ModelViewSet):
 
     def get_queryset(self):
         user = self.request.user
-        ownerQuery = Owner.objects.get(
-            Q(user=user)
-        )
-        taskObj = Task.objects.filter(
-            Q(owner=ownerQuery)
-        )
+        ownerQuery = Owner.objects.get(Q(user=user))
+        taskObj = Task.objects.filter(Q(owner=ownerQuery))
         return taskObj
 
     def list(self, request, *args, **kwargs):
@@ -110,6 +115,5 @@ class TaskAPIView(ModelViewSet):
         queryset = get_object_or_404(queryset, pk=pk)
         queryset.delete()
         return Response(
-            {"Task was successfully deleted."},
-            status=status.HTTP_204_NO_CONTENT
+            {"Task was successfully deleted."}, status=status.HTTP_204_NO_CONTENT
         )
