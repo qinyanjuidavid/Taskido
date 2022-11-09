@@ -34,6 +34,7 @@ class CategoryAPIView(ModelViewSet):
                 paginator = StandardResultsSetPagination()
                 result_page = paginator.paginate_queryset(queryset, request)
                 serializer = self.get_serializer(result_page, many=True)
+                # Add status code to response
                 return paginator.get_paginated_response(serializer.data)
             else:
                 return Response(
