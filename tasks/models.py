@@ -1,16 +1,18 @@
 from django.db import models
 from django.utils.translation import gettext as _
 from accounts.models import Owner, TrackingModel
+from colorfield.fields import ColorField
+
 # Create your models here.
 
 # In_progress, Complete,Pending
 
 
 class Category(TrackingModel):
-    category = models.CharField(_("Category"),
-                                max_length=108)
+    category = models.CharField(_("Category"), max_length=108)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
+    color = ColorField(default="#FF0000")
 
     def __str__(self):
         return str(self.category)
@@ -22,11 +24,9 @@ class Category(TrackingModel):
 
 class Task(TrackingModel):
     task = models.CharField(_("task"), max_length=89)
-    owner = models.ForeignKey(Owner,
-                              on_delete=models.CASCADE)
+    owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     category = models.ForeignKey(
-        Category, on_delete=models.CASCADE,
-        related_name="categories", default=1
+        Category, on_delete=models.CASCADE, related_name="categories", default=1
     )
     completed = models.BooleanField(_("completed"), default=False)
     note = models.TextField(_("Note"), blank=True, null=True)
@@ -38,4 +38,7 @@ class Task(TrackingModel):
 
     class Meta:
         verbose_name_plural = "Tasks"
-        ordering = ("-important", "due_date",)
+        ordering = (
+            "-important",
+            "due_date",
+        )

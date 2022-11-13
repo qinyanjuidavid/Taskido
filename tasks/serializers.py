@@ -7,10 +7,19 @@ from tasks.models import Category, Task
 class CategorySerializer(serializers.ModelSerializer):
     owner = OwnersProfileSerializer(read_only=True)
     category = serializers.CharField(required=True)
+    color = serializers.CharField(required=True)
 
     class Meta:
         model = Category
-        fields = ("id", "category", "owner", "completed", "created_at", "updated_at")
+        fields = (
+            "id",
+            "category",
+            "color",
+            "owner",
+            "completed",
+            "created_at",
+            "updated_at",
+        )
         read_only_fields = ("id",)
 
 
