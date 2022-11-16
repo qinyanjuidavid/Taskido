@@ -12,7 +12,7 @@ class Category(TrackingModel):
     category = models.CharField(_("Category"), max_length=108)
     owner = models.ForeignKey(Owner, on_delete=models.CASCADE)
     completed = models.BooleanField(default=False)
-    color = ColorField(default="#FF0000")
+    color = models.CharField(max_length=16)
 
     def __str__(self):
         return str(self.category)
