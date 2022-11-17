@@ -174,6 +174,22 @@ class OwnersProfileSerializer(serializers.ModelSerializer):
         )
         read_only_fields = ("id",)
 
+    def update(self, instance, validated_data):
+        if validated_data.get("user"):
+            userData = validated_data.pop("user")
+            user = instance.user
+            user.phone = userData.get("phone", user.phone)
+            user.email = userData.get("email", user.email)
+            user.full_name = userData.get("full_name", user.full_name)
+            user.save()
+        # Update profile
+        instance.bio = validated_data.get("bio", instance.bio)
+        instance.profile_picture = validated_data.get(
+            "profile_picture", instance.profile_picture
+        )
+        instance.save()
+        return instance
+
 
 class AdministratorProfileSerializer(serializers.ModelSerializer):
     user = UserSerializer(read_only=True)

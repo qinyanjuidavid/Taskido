@@ -462,32 +462,30 @@ class OwnerProfileAPIView(ModelViewSet):
 
     serializer_class = OwnersProfileSerializer
     permission_classes = [IsAuthenticated, IsOwner]
-    http_method_names = ["get", "put"]
+    http_method_names = ["get", "put", "patch"]
 
     def get_queryset(self):
         user = self.request.user
-        ownerQuery = Owner.objects.filter(Q(user=user))
-        return ownerQuery
+        queryset = Owner.objects.filter(user=user)
+        return queryset
 
-    def retrieve(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, many=False)
+    def retrieve(self, request, pk=None, *args, **kwargs):
+        queryset = self.get_queryset()
+        queryset = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(queryset)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-    def update(self, request, *args, **kwargs):
-        instance = self.get_object()
-        serializer = self.get_serializer(instance, data=request.data)
+    def update(self, request, pk=None, *args, **kwargs):
+        queryset = self.get_queryset()
+        queryset = get_object_or_404(queryset, pk=pk)
+        serializer = self.get_serializer(
+            queryset,
+            data=request.data,
+            partial=True,
+        )
         serializer.is_valid(raise_exception=True)
         serializer.save()
-
-        userSerializer = UserSerializer(request.user, data=request.data["user"])
-        userSerializer.is_valid(raise_exception=True)
-        instance.user.username = userSerializer.validated_data["username"]
-        instance.user.full_name = userSerializer.validated_data["full_name"]
-        instance.user.phone = userSerializer.validated_data["phone"]
-        instance.user.save()
-        # userSerializer.save()
-        return Response(serializer.data, status=status.HTTP_202_ACCEPTED)
+        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class AdministratorProfileAPIView(ModelViewSet):

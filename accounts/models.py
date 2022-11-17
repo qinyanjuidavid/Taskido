@@ -148,7 +148,7 @@ class User(AbstractBaseUser, TrackingModel):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    bio = models.TextField(_("bio"), blank=True, null=True)
+    bio = models.TextField(_("bio"), default="***No abouts***")
     profile_picture = models.ImageField(
         _("profile picture"),
         upload_to="profile_pictures/",
