@@ -478,13 +478,17 @@ class OwnerProfileAPIView(ModelViewSet):
     def update(self, request, pk=None, *args, **kwargs):
         queryset = self.get_queryset()
         queryset = get_object_or_404(queryset, pk=pk)
+        print("Request", request.data)
         serializer = self.get_serializer(
             queryset,
             data=request.data,
             partial=True,
         )
+
         serializer.is_valid(raise_exception=True)
+
         serializer.save()
+        print("Serializer", serializer.data)
         return Response(serializer.data, status=status.HTTP_200_OK)
 
 

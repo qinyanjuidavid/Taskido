@@ -19,7 +19,7 @@ class CategoryAPIView(ModelViewSet):
 
     def get_queryset(self):
         owner = Owner.objects.get(Q(user=self.request.user))
-        queryset = Category.objects.filter(Q(owner=owner))
+        queryset = Category.objects.filter(Q(owner=owner)).order_by("-id")
         query = self.request.query_params.get("q")
         if query:
             queryset = queryset.filter(
@@ -79,15 +79,31 @@ class TaskAPIView(ModelViewSet):
     http_method_names = ["get", "post", "put", "delete"]
 
     def get_queryset(self):
-        user = self.request.user
-        ownerQuery = Owner.objects.get(Q(user=user))
-        taskObj = Task.objects.filter(Q(owner=ownerQuery))
-        return taskObj
+        owner = Owner.objects.get(user=self.request.user)
+        queryset = Task.objects.filter(
+            owner=owner,
+        ).order_by("-id")
+        query = self.request.query_params.get("q")
+        if query:
+            queryset = queryset.filter(
+                Q(task__icontains=query),
+            )
+        return queryset
 
     def list(self, request, *args, **kwargs):
         queryset = self.get_queryset()
-        serializer = self.get_serializer(queryset, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+        if request.method == "GET":
+            if len(queryset) > 0:
+                paginator = StandardResultsSetPagination()
+                result_page = paginator.paginate_queryset(queryset, request)
+                serializer = self.get_serializer(result_page, many=True)
+                # Add status code to response
+                return paginator.get_paginated_response(serializer.data)
+            else:
+                return Response(
+                    {"message": "No Task found"},
+                    status=status.HTTP_200_OK,
+                )
 
     def retrieve(self, request, pk=None, *args, **kwargs):
         queryset = self.get_queryset()

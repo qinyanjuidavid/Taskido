@@ -30,9 +30,6 @@ class UserSerializer(serializers.ModelSerializer):
             "timestamp",
         )
         read_only_fields = ("email", "role")
-        extra_kwargs = {
-            "phone": {"validators": []},
-        }
 
 
 class LoginSerializer(TokenObtainPairSerializer):
@@ -162,7 +159,7 @@ class GoogleSocialLoginSerializer(serializers.Serializer):
 
 
 class OwnersProfileSerializer(serializers.ModelSerializer):
-    user = UserSerializer(read_only=True)
+    user = UserSerializer()
 
     class Meta:
         model = Owner
@@ -175,6 +172,7 @@ class OwnersProfileSerializer(serializers.ModelSerializer):
         read_only_fields = ("id",)
 
     def update(self, instance, validated_data):
+        print(validated_data)
         if validated_data.get("user"):
             userData = validated_data.pop("user")
             user = instance.user
@@ -182,6 +180,7 @@ class OwnersProfileSerializer(serializers.ModelSerializer):
             user.email = userData.get("email", user.email)
             user.full_name = userData.get("full_name", user.full_name)
             user.save()
+            print("User ", user.full_name)
         # Update profile
         instance.bio = validated_data.get("bio", instance.bio)
         instance.profile_picture = validated_data.get(

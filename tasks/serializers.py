@@ -39,6 +39,7 @@ class TaskSerializer(serializers.ModelSerializer):
             "note",
             "due_date",
             "important",
+            "completed",
             "created_at",
             "updated_at",
         )
