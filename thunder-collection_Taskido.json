@@ -1,1 +1,229 @@
-{"client":"Thunder Client","collectionName":"Taskido","dateExported":"2022-11-21T05:56:33.917Z","version":"1.1","folders":[],"requests":[{"_id":"ac049734-a883-4531-a375-26c8eef0d100","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Login","url":"http://127.0.0.1:8000/api/v1/login/","method":"POST","sortNum":10000,"created":"2022-11-03T17:02:12.840Z","modified":"2022-11-04T13:07:17.761Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"phone\": \"0700215646\",\n  \"password\": \"kinyanjuid29\"\n}","form":[]},"tests":[]},{"_id":"78f1ab0d-9de0-4527-b1e8-eda716359c1f","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Logout","url":"http://127.0.0.1:8000/api/v1/logout/","method":"POST","sortNum":15000,"created":"2022-11-08T04:38:20.944Z","modified":"2022-11-08T09:24:50.819Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3ODI2NzQ3NywiaWF0IjoxNjY3ODk5NDc3LCJqdGkiOiJjZTczMmRlMTQ1OGM0ZGIwYmNlODhlYjU5MmViM2JkMyIsInVzZXJfaWQiOjJ9.38sWUMtVgZrF1KZDCVvLdLv8Mmf8yw66uW55V6Y5ej4\"\n}","form":[]},"auth":{"type":"bearer","bearer":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDc0OTQyLCJpYXQiOjE2Njc4ODI5NDIsImp0aSI6IjNlNTg3N2MyMDNkNTQzOTRiMWIwODFmM2U1MTNmZGI5IiwidXNlcl9pZCI6Mn0.ZDbPdcDillzkJPxxdSELQw4cRo_xDOcUsm2dYHIJ-DM"},"tests":[]},{"_id":"16079f64-ada3-44f7-a2e0-2c5291e2de84","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Refresh Token Auth","url":"http://127.0.0.1:8000/api/v1/auth/refresh/","method":"POST","sortNum":17500,"created":"2022-11-08T05:01:20.958Z","modified":"2022-11-08T05:18:46.948Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2Nzg4NDg5MiwiaWF0IjoxNjY3ODg0NzEyLCJqdGkiOiI0ZDRhY2JlNTUwYmE0ZDc3OTYyYzE5NzRkMWFkNTYwMCIsInVzZXJfaWQiOjJ9.lJZWVPi0pggvOXeqQY8mNCvjJtlK9hUGhyx_WLBgY4o\"\n}","form":[]},"tests":[]},{"_id":"bfca0c6f-a5b0-433b-a591-b0a2c69f6426","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Register","url":"http://127.0.0.1:8000/api/v1/register/","method":"POST","sortNum":20000,"created":"2022-11-03T17:27:48.074Z","modified":"2022-11-08T10:32:29.457Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"phone\":\"0700215647\",\n  \"email\":\"testuser@gmail.com\",\n  \"full_name\":\"Grace Gaciuki\",\n  \"password\":\"kinyanjuid29\",\n  \"password_confirmation\":\"kinyanjuid29\"\n}","form":[]},"tests":[]},{"_id":"9cda3b49-2b1c-4ec9-a5d2-f38d34f0062a","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Activate","url":"http://127.0.0.1:8000/api/v1/activate/","method":"POST","sortNum":30000,"created":"2022-11-04T12:00:03.065Z","modified":"2022-11-08T10:33:03.629Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"token\":\"380945\",\n  \"phone\":\"0700215647\"\n}","form":[]},"tests":[]},{"_id":"a3d1185c-9755-43c6-bfda-55e46038fdf0","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Password Reset Phonenumber","url":"http://127.0.0.1:8000/api/v1/password-reset/","method":"POST","sortNum":35000,"created":"2022-11-08T14:26:46.284Z","modified":"2022-11-08T14:28:31.172Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"phone\":\"0700215645\"\n}","form":[]},"tests":[]},{"_id":"89009aa4-f63c-40b1-9146-7d9bf2ae103a","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"password token check","url":"http://127.0.0.1:8000/api/v1/password-reset-token-check/","method":"POST","sortNum":37500,"created":"2022-11-08T15:47:57.923Z","modified":"2022-11-08T15:56:44.651Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"token\":\"040294\",\n  \"phone\":\"0700215645\"\n}","form":[]},"tests":[]},{"_id":"c4c4244f-e530-4ddd-a924-8153da4fb606","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Password Reset Complete","url":"http://127.0.0.1:8000/api/v1/password-reset-complete/","method":"POST","sortNum":38750,"created":"2022-11-08T17:51:44.183Z","modified":"2022-11-08T17:52:07.707Z","headers":[],"params":[],"tests":[]},{"_id":"2bafd2fd-4a8f-4ad3-93b6-cab95af8fe84","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Categories","url":"http://127.0.0.1:8000/api/v1/category/104/","method":"PUT","sortNum":40000,"created":"2022-11-04T13:05:33.020Z","modified":"2022-11-21T05:52:29.603Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"category\":\"Cooking\",\n  \"color\":\"#ff795548\"\n}","form":[]},"auth":{"type":"bearer","bearer":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDc0OTQyLCJpYXQiOjE2Njc4ODI5NDIsImp0aSI6IjNlNTg3N2MyMDNkNTQzOTRiMWIwODFmM2U1MTNmZGI5IiwidXNlcl9pZCI6Mn0.ZDbPdcDillzkJPxxdSELQw4cRo_xDOcUsm2dYHIJ-DM"},"tests":[]},{"_id":"e8321f1b-cd03-4201-882c-78a25f17f108","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Tasks","url":"http://127.0.0.1:8000/api/v1/tasks/17/","method":"PUT","sortNum":50000,"created":"2022-11-06T10:14:14.531Z","modified":"2022-11-21T05:54:33.542Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n  \"note\":\"I love call of duty\"\n}","form":[]},"auth":{"type":"bearer","bearer":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMjI0Njk5LCJpYXQiOjE2Njc2MzI2OTksImp0aSI6ImE1ZjM3MjE2ZjQ4OTQ3ZTY4MDU3MzM1ZWU2ZWIyZmU4IiwidXNlcl9pZCI6Mn0.i_A_mJ0BqrOC_LGRo0gkMEhBvmNoIa_gZl_jhqXC6Pk"},"tests":[]},{"_id":"5d01350c-e684-4c75-b1cd-9a34fb60279a","colId":"25c67d76-ea57-45a8-8963-764855f1b8d5","containerId":"","name":"Profile","url":"http://127.0.0.1:8000/api/v1/owner/profile/1/","method":"PUT","sortNum":60000,"created":"2022-11-16T18:20:01.624Z","modified":"2022-11-17T18:55:08.793Z","headers":[],"params":[],"body":{"type":"json","raw":"{\n    \"email\": \"gracy@gmail.com\",\n    \"full_name\": \"Grace Gaciukii\",\n  \"bio\": \"To load an image from Custom URL into a circle avatar use the Network Image widget that downloads images from the internet and shows it inside the app.\"\n}","form":[]},"auth":{"type":"bearer","bearer":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDc0OTQyLCJpYXQiOjE2Njc4ODI5NDIsImp0aSI6IjNlNTg3N2MyMDNkNTQzOTRiMWIwODFmM2U1MTNmZGI5IiwidXNlcl9pZCI6Mn0.ZDbPdcDillzkJPxxdSELQw4cRo_xDOcUsm2dYHIJ-DM"},"tests":[]}]}
+{
+  "client": "Thunder Client",
+  "collectionName": "Taskido",
+  "dateExported": "2022-11-21T05:56:33.917Z",
+  "version": "1.1",
+  "folders": [],
+  "requests": [
+    {
+      "_id": "ac049734-a883-4531-a375-26c8eef0d100",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Login",
+      "url": "http://127.0.0.1:8000/api/v1/login/",
+      "method": "POST",
+      "sortNum": 10000,
+      "created": "2022-11-03T17:02:12.840Z",
+      "modified": "2022-11-04T13:07:17.761Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"phone\": \"0700215646\",\n  \"password\": \"kinyanjuid29\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "78f1ab0d-9de0-4527-b1e8-eda716359c1f",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Logout",
+      "url": "http://127.0.0.1:8000/api/v1/logout/",
+      "method": "POST",
+      "sortNum": 15000,
+      "created": "2022-11-08T04:38:20.944Z",
+      "modified": "2022-11-08T09:24:50.819Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY3ODI2NzQ3NywiaWF0IjoxNjY3ODk5NDc3LCJqdGkiOiJjZTczMmRlMTQ1OGM0ZGIwYmNlODhlYjU5MmViM2JkMyIsInVzZXJfaWQiOjJ9.38sWUMtVgZrF1KZDCVvLdLv8Mmf8yw66uW55V6Y5ej4\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDc0OTQyLCJpYXQiOjE2Njc4ODI5NDIsImp0aSI6IjNlNTg3N2MyMDNkNTQzOTRiMWIwODFmM2U1MTNmZGI5IiwidXNlcl9pZCI6Mn0.ZDbPdcDillzkJPxxdSELQw4cRo_xDOcUsm2dYHIJ-DM"
+      },
+      "tests": []
+    },
+    {
+      "_id": "16079f64-ada3-44f7-a2e0-2c5291e2de84",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Refresh Token Auth",
+      "url": "http://127.0.0.1:8000/api/v1/auth/refresh/",
+      "method": "POST",
+      "sortNum": 17500,
+      "created": "2022-11-08T05:01:20.958Z",
+      "modified": "2022-11-08T05:18:46.948Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTY2Nzg4NDg5MiwiaWF0IjoxNjY3ODg0NzEyLCJqdGkiOiI0ZDRhY2JlNTUwYmE0ZDc3OTYyYzE5NzRkMWFkNTYwMCIsInVzZXJfaWQiOjJ9.lJZWVPi0pggvOXeqQY8mNCvjJtlK9hUGhyx_WLBgY4o\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "bfca0c6f-a5b0-433b-a591-b0a2c69f6426",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Register",
+      "url": "http://127.0.0.1:8000/api/v1/register/",
+      "method": "POST",
+      "sortNum": 20000,
+      "created": "2022-11-03T17:27:48.074Z",
+      "modified": "2022-11-08T10:32:29.457Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"phone\":\"0700215647\",\n  \"email\":\"testuser@gmail.com\",\n  \"full_name\":\"Grace Gaciuki\",\n  \"password\":\"kinyanjuid29\",\n  \"password_confirmation\":\"kinyanjuid29\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "9cda3b49-2b1c-4ec9-a5d2-f38d34f0062a",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Activate",
+      "url": "http://127.0.0.1:8000/api/v1/activate/",
+      "method": "POST",
+      "sortNum": 30000,
+      "created": "2022-11-04T12:00:03.065Z",
+      "modified": "2022-11-08T10:33:03.629Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"token\":\"380945\",\n  \"phone\":\"0700215647\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "a3d1185c-9755-43c6-bfda-55e46038fdf0",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Password Reset Phonenumber",
+      "url": "http://127.0.0.1:8000/api/v1/password-reset/",
+      "method": "POST",
+      "sortNum": 35000,
+      "created": "2022-11-08T14:26:46.284Z",
+      "modified": "2022-11-08T14:28:31.172Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"phone\":\"0700215645\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "89009aa4-f63c-40b1-9146-7d9bf2ae103a",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "password token check",
+      "url": "http://127.0.0.1:8000/api/v1/password-reset-token-check/",
+      "method": "POST",
+      "sortNum": 37500,
+      "created": "2022-11-08T15:47:57.923Z",
+      "modified": "2022-11-08T15:56:44.651Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"token\":\"040294\",\n  \"phone\":\"0700215645\"\n}",
+        "form": []
+      },
+      "tests": []
+    },
+    {
+      "_id": "c4c4244f-e530-4ddd-a924-8153da4fb606",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Password Reset Complete",
+      "url": "http://127.0.0.1:8000/api/v1/password-reset-complete/",
+      "method": "POST",
+      "sortNum": 38750,
+      "created": "2022-11-08T17:51:44.183Z",
+      "modified": "2022-11-08T17:52:07.707Z",
+      "headers": [],
+      "params": [],
+      "tests": []
+    },
+    {
+      "_id": "2bafd2fd-4a8f-4ad3-93b6-cab95af8fe84",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Categories",
+      "url": "http://127.0.0.1:8000/api/v1/category/104/",
+      "method": "PUT",
+      "sortNum": 40000,
+      "created": "2022-11-04T13:05:33.020Z",
+      "modified": "2022-11-21T05:52:29.603Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"category\":\"Cooking\",\n  \"color\":\"#ff795548\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDc0OTQyLCJpYXQiOjE2Njc4ODI5NDIsImp0aSI6IjNlNTg3N2MyMDNkNTQzOTRiMWIwODFmM2U1MTNmZGI5IiwidXNlcl9pZCI6Mn0.ZDbPdcDillzkJPxxdSELQw4cRo_xDOcUsm2dYHIJ-DM"
+      },
+      "tests": []
+    },
+    {
+      "_id": "e8321f1b-cd03-4201-882c-78a25f17f108",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Tasks",
+      "url": "http://127.0.0.1:8000/api/v1/tasks/17/",
+      "method": "PUT",
+      "sortNum": 50000,
+      "created": "2022-11-06T10:14:14.531Z",
+      "modified": "2022-11-21T05:54:33.542Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n  \"note\":\"I love call of duty\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwMjI0Njk5LCJpYXQiOjE2Njc2MzI2OTksImp0aSI6ImE1ZjM3MjE2ZjQ4OTQ3ZTY4MDU3MzM1ZWU2ZWIyZmU4IiwidXNlcl9pZCI6Mn0.i_A_mJ0BqrOC_LGRo0gkMEhBvmNoIa_gZl_jhqXC6Pk"
+      },
+      "tests": []
+    },
+    {
+      "_id": "5d01350c-e684-4c75-b1cd-9a34fb60279a",
+      "colId": "25c67d76-ea57-45a8-8963-764855f1b8d5",
+      "containerId": "",
+      "name": "Profile",
+      "url": "http://127.0.0.1:8000/api/v1/owner/profile/1/",
+      "method": "PUT",
+      "sortNum": 60000,
+      "created": "2022-11-16T18:20:01.624Z",
+      "modified": "2022-11-17T18:55:08.793Z",
+      "headers": [],
+      "params": [],
+      "body": {
+        "type": "json",
+        "raw": "{\n    \"email\": \"gracy@gmail.com\",\n    \"full_name\": \"Grace Gaciukii\",\n  \"bio\": \"To load an image from Custom URL into a circle avatar use the Network Image widget that downloads images from the internet and shows it inside the app.\"\n}",
+        "form": []
+      },
+      "auth": {
+        "type": "bearer",
+        "bearer": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjcwNDc0OTQyLCJpYXQiOjE2Njc4ODI5NDIsImp0aSI6IjNlNTg3N2MyMDNkNTQzOTRiMWIwODFmM2U1MTNmZGI5IiwidXNlcl9pZCI6Mn0.ZDbPdcDillzkJPxxdSELQw4cRo_xDOcUsm2dYHIJ-DM"
+      },
+      "tests": []
+    }
+  ]
+}
