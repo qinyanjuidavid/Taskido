@@ -18,8 +18,10 @@ class CategoryAPIView(ModelViewSet):
     http_method_names = ["get", "post", "put", "delete"]
 
     def get_queryset(self):
-        owner = Owner.objects.get(Q(user=self.request.user))
-        queryset = Category.objects.filter(Q(owner=owner)).order_by("-id")
+        owner = Owner.objects.get(user=self.request.user)
+        queryset = Category.objects.filter(
+            owner=owner,
+        ).order_by("-id")
         query = self.request.query_params.get("q")
         if query:
             queryset = queryset.filter(
@@ -34,7 +36,6 @@ class CategoryAPIView(ModelViewSet):
                 paginator = StandardResultsSetPagination()
                 result_page = paginator.paginate_queryset(queryset, request)
                 serializer = self.get_serializer(result_page, many=True)
-                # Add status code to response
                 return paginator.get_paginated_response(serializer.data)
             else:
                 return Response(
@@ -49,19 +50,18 @@ class CategoryAPIView(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        context = {"request": request}
+        serializer = self.get_serializer(data=request.data, context=context)
         serializer.is_valid(raise_exception=True)
-        ownerQs = Owner.objects.get(user=request.user)
-        serializer.save(owner=ownerQs)
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None, *args, **kwargs):
         queryset = self.get_queryset()
         queryset = get_object_or_404(queryset, pk=pk)
-        serializer = self.get_serializer(queryset, data=request.data)
+        serializer = self.get_serializer(queryset, data=request.data, partial=True)
         serializer.is_valid(raise_exception=True)
-        ownerObj = Owner.objects.get(user=request.user)
-        serializer.save(owner=ownerObj)
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def destroy(self, request, pk=None, *args, **kwargs):
@@ -97,7 +97,6 @@ class TaskAPIView(ModelViewSet):
                 paginator = StandardResultsSetPagination()
                 result_page = paginator.paginate_queryset(queryset, request)
                 serializer = self.get_serializer(result_page, many=True)
-                # Add status code to response
                 return paginator.get_paginated_response(serializer.data)
             else:
                 return Response(
@@ -112,19 +111,22 @@ class TaskAPIView(ModelViewSet):
         return Response(serializer.data, status=status.HTTP_200_OK)
 
     def create(self, request, *args, **kwargs):
-        serializer = self.get_serializer(data=request.data)
+        context = {"request": request}
+        serializer = self.get_serializer(data=request.data, context=context)
         serializer.is_valid(raise_exception=True)
-        ownerQs = Owner.objects.get(user=request.user)
-        serializer.save(owner=ownerQs)
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def update(self, request, pk=None, *args, **kwargs):
         queryset = self.get_queryset()
         queryset = get_object_or_404(queryset, pk=pk)
-        serializer = self.get_serializer(queryset, data=request.data)
+        serializer = self.get_serializer(
+            queryset,
+            data=request.data,
+            partial=True,
+        )
         serializer.is_valid(raise_exception=True)
-        ownerObj = Owner.objects.get(user=request.user)
-        serializer.save(owner=ownerObj)
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
     def destroy(self, request, pk=None, *args, **kwargs):
