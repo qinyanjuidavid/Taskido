@@ -1,9 +1,10 @@
 import os
 from datetime import timedelta
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
@@ -12,7 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = "django-insecure-8#foks*(b_hrne#f!*)yz_fvr$8xkg^82jni@eee037a1+3b#*"
 
-
+DEBUG = True
 ALLOWED_HOSTS = ["*"]
 
 
@@ -117,7 +118,67 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "src.wsgi.application"
 
+# Database
+# https://docs.djangoproject.com/en/4.1/ref/settings/#databases
+DB_USERNAME = os.environ.get("POSTGRES_USER")
+DB_PASSWORD = os.environ.get("POSTGRES_PASSWORD")
+DB_DATABASE = os.environ.get("POSTGRES_DB")
+DB_HOST = os.environ.get("POSTGRES_HOST")
+DB_PORT = os.environ.get("POSTGRES_PORT")
 
+
+DB_IS_AVAIL = all([DB_USERNAME, DB_DATABASE, DB_PASSWORD, DB_HOST, DB_PORT])
+if DB_IS_AVAIL:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": DB_DATABASE,
+            "USER": DB_USERNAME,
+            "PASSWORD": DB_PASSWORD,
+            "HOST": DB_HOST,
+            "PORT": DB_PORT,
+        }
+    }
+
+
+if DEBUG == "0":
+
+    db_from_env = dj_database_url.config()
+    DATABASES["default"].update(db_from_env)
+    DATABASES["default"]["CONN_MAX_AGE"] = 500
+    CORS_ALLOWED_ORIGINS = []
+
+    # SSL and TLS settings
+    CORS_REPLACE_HTTPS_REFERER = True
+    HOST_SCHEME = "https://"
+    SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+    SECURE_SSL_REDIRECT = True
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_SECONDS = 1000000
+    SECURE_FRAME_DENY = True
+
+    # Whitenoise storage
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
+    }
+    print(DATABASES)
+
+
+EMAIL_BACKEND = os.environ.get("EMAIL_BACKEND")
+
+EMAIL_HOST = os.environ.get("EMAIL_HOST")
+EMAIL_PORT = os.environ.get("EMAIL_PORT")
+EMAIL_USE_TLS = os.environ.get("EMAIL_USE_TLS")
+EMAIL_HOST_USER = os.environ.get("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_HOST_PASSWORD")
+DEFAULT_FROM_EMAIL = os.environ.get("DEFAULT_FROM_EMAIL")
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
