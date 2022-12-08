@@ -16,9 +16,14 @@ from django.utils.encoding import (
 )
 from django.utils.http import urlsafe_base64_decode, urlsafe_base64_encode
 from rest_framework.exceptions import AuthenticationFailed
+from phonenumber_field.serializerfields import PhoneNumberField
 
 
-class UserSerializer(serializers.ModelSerializer):
+class UserSerializer(
+    serializers.ModelSerializer,
+):
+    phone = PhoneNumberField()
+
     class Meta:
         model = User
         fields = (
@@ -29,7 +34,13 @@ class UserSerializer(serializers.ModelSerializer):
             "role",
             "timestamp",
         )
-        read_only_fields = ("email", "role")
+        read_only_fields = (
+            "email",
+            "role",
+        )
+        extra_kwargs = {
+            "phone": {"validators": []},
+        }
 
 
 class LoginSerializer(TokenObtainPairSerializer):
@@ -176,8 +187,18 @@ class OwnersProfileSerializer(serializers.ModelSerializer):
         if validated_data.get("user"):
             userData = validated_data.pop("user")
             user = instance.user
+            # if the validated phone belongs to another user raise error
+            if (
+                User.objects.filter(phone=userData.get("phone"))
+                .exclude(id=user.id)
+                .exists()
+            ):
+                raise serializers.ValidationError(
+                    "Phone number already exists.",
+                )
+
             user.phone = userData.get("phone", user.phone)
-            user.email = userData.get("email", user.email)
+            # user.email = userData.get("email", user.email)
             user.full_name = userData.get("full_name", user.full_name)
             user.save()
             print("User ", user.full_name)

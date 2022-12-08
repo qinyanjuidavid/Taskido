@@ -15,7 +15,7 @@ from tasks.serializers import CategorySerializer, TaskSerializer
 class CategoryAPIView(ModelViewSet):
     serializer_class = CategorySerializer
     permission_classes = [IsAuthenticated, IsOwner]
-    http_method_names = ["get", "post", "put", "delete"]
+    http_method_names = ["get", "post", "put", "patch", "delete"]
 
     def get_queryset(self):
         owner = Owner.objects.get(user=self.request.user)

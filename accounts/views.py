@@ -480,8 +480,9 @@ class OwnerProfileAPIView(ModelViewSet):
         queryset = get_object_or_404(queryset, pk=pk)
         print("Request", request.data)
         serializer = self.get_serializer(
-            queryset,
+            # queryset,
             data=request.data,
+            instance=queryset,
             partial=True,
         )
 
