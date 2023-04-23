@@ -120,7 +120,7 @@ class OwnerRegisterViewSet(ModelViewSet, TokenObtainPairView):
             {
                 "user": serializer.data,
                 "refresh": res["refresh"],
-                "token": res["access"],
+                "access": res["access"],
             },
             status=status.HTTP_201_CREATED,
         )
@@ -319,7 +319,7 @@ class PasswordResetTokenCheckViewSet(ModelViewSet):
                 if OTP.verify(request.data["token"], user.counter):
                     return Response(
                         {
-                            "otpData": serializer.data,
+                            "data": serializer.data,
                             "message": "OTP verified successfully",
                         },
                         status=status.HTTP_200_OK,
