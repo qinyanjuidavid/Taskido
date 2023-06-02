@@ -237,6 +237,7 @@ class AccountActivationViewSet(ModelViewSet):
 
 # Password Reset
 
+
 # Request Phone for Password Reset
 class RequestPasswordResetPhoneNumber(ModelViewSet):
     """
@@ -342,8 +343,6 @@ class PasswordResetTokenCheckViewSet(ModelViewSet):
 
 
 # If the above OTP is verified, the user can reset their password
-
-
 class SetNewPasswordViewSet(ModelViewSet):
     """
     The user can set a new password, if the OTP is verified successfully.
